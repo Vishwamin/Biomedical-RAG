@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Env
+.env
+.env.local
+
+# Data (generated at runtime, don't commit)
+backend/data/chroma/
+backend/data/*.db
+backend/data/documents/*
+!backend/data/documents/.gitkeep
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# OS
+.DS_Store

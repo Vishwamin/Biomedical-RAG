@@ -1,0 +1,25 @@
+{
+  "_README": "These are TEMPLATE/EXAMPLE cases showing the correct shape and category coverage for a golden evaluation dataset — they are NOT a real 30+ question ground-truth set, and expected_source_filenames below are placeholders. Replace these with real questions about documents you have actually ingested, with source filenames that match what you uploaded, before drawing any real conclusions from an evaluation run.",
+  "cases": [
+    {
+      "case_id": "example_001",
+      "question": "According to the ingested literature, what mechanism allows checkpoint inhibitors to restore T-cell activity against tumor cells?",
+      "question_type": "direct_factual",
+      "difficulty": "easy",
+      "is_answerable": true,
+      "expected_source_filenames": ["checkpoint_inhibitors.pdf"],
+      "expected_answer_summary": "They block PD-1/PD-L1 interaction, removing an inhibitory signal on T cells.",
+      "notes": "Template example — replace with a real question about your own ingested papers."
+    },
+    {
+      "case_id": "example_002",
+      "question": "What exact dosage of the study drug was administered to elderly patients in the trial?",
+      "question_type": "insufficient_evidence",
+      "difficulty": "medium",
+      "is_answerable": false,
+      "expected_source_filenames": [],
+      "expected_answer_summary": null,
+      "notes": "Template example testing correct refusal."
+    }
+  ]
+}

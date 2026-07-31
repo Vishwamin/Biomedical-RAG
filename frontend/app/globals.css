@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  --color-paper: #F4F5F0;
+  --color-paper-raised: #FCFCFA;
+  --color-ink: #1B2430;
+  --color-ink-soft: #4B5563;
+  --color-line: #DBDCD3;
+  --color-line-strong: #C3C5B8;
+
+  --color-accent: #7A3232;
+  --color-accent-soft: #F3E7E4;
+
+  --color-verify: #2F5D45;
+  --color-verify-soft: #E4EEE7;
+  --color-flag: #8A611A;
+  --color-flag-soft: #F3ECDC;
+  --color-contradict: #8C2E2E;
+  --color-contradict-soft: #F5E4E1;
+
+  --color-data: #3E4C68;
+  --color-data-soft: #E7E9EF;
+
+  --color-spine: #1B2430;
+  --color-spine-line: #2C3646;
+  --color-spine-text: #C9CDD6;
+
+  --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-data: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-paper-raised: var(--color-paper-raised);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-line: var(--color-line);
+  --color-line-strong: var(--color-line-strong);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-verify: var(--color-verify);
+  --color-verify-soft: var(--color-verify-soft);
+  --color-flag: var(--color-flag);
+  --color-flag-soft: var(--color-flag-soft);
+  --color-contradict: var(--color-contradict);
+  --color-contradict-soft: var(--color-contradict-soft);
+  --color-data: var(--color-data);
+  --color-data-soft: var(--color-data-soft);
+  --color-spine: var(--color-spine);
+  --color-spine-line: var(--color-spine-line);
+  --color-spine-text: var(--color-spine-text);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-data: var(--font-data);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.rule-field {
+  background-image: repeating-linear-gradient(
+    to bottom, transparent, transparent 27px, var(--color-line) 27px, var(--color-line) 28px
+  );
+}
+
+.font-display { font-family: var(--font-display); }
+.font-data { font-family: var(--font-data); }
