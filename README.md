@@ -1,168 +1,321 @@
-# BioRAG — Biomedical AI-Powered Research Intelligence System
+# BioRAG
 
-A biomedical research intelligence system that uses hybrid retrieval
-(dense + BM25 fused via Reciprocal Rank Fusion), cross-encoder reranking,
-grounded generation, citation verification, confidence scoring, and a
-retrieval-ablation evaluation framework to provide reliable,
-evidence-backed answers from scientific literature — with a research
-workspace frontend to go with it.
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi)
+![Next.js](https://img.shields.io/badge/Next.js-Frontend-black?logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-1C3C3C)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_DB-orange)
+![BM25](https://img.shields.io/badge/BM25-Lexical_Retrieval-success)
+![RRF](https://img.shields.io/badge/RRF-Hybrid_Search-blueviolet)
+![PubMedBERT](https://img.shields.io/badge/PubMedBERT-Embeddings-green)
+![Groq](https://img.shields.io/badge/Groq-LLM-f55036)
+![Pytest](https://img.shields.io/badge/Pytest-Testing-0A9EDC?logo=pytest)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-> **Status: Phase 7 — Frontend complete, now with persistent chat.** The
-> full backend pipeline (ingestion → hybrid retrieval → reranking →
-> grounded generation → claim extraction → citation verification →
-> confidence scoring → evaluation) and a Next.js research workspace with
-> a persistent, ChatGPT-style conversation system are all working end to
-> end. Docker and final packaging (Phase 8) are not yet done — see
-> `docs/architecture.md` for the build plan and every architectural
-> decision made along the way.
+## Biomedical Retrieval-Augmented Generation Platform for Scientific Literature
 
-## Disclaimer
+BioRAG is an end-to-end biomedical Retrieval-Augmented Generation (RAG) platform that enables researchers to upload scientific papers, retrieve relevant evidence using hybrid search, generate grounded answers with citations, verify supporting claims, and evaluate retrieval quality through an integrated benchmarking framework.
 
-This is a research and educational literature-analysis tool. It is **not**
-a medical diagnosis system, a clinical decision-making tool, or a
-replacement for healthcare professionals.
+Unlike traditional chatbots, BioRAG prioritizes evidence-backed responses by combining dense semantic retrieval, lexical search, reranking, citation verification, and confidence estimation before generating an answer.
 
-## Project structure
+> **Disclaimer**
+>
+> BioRAG is intended for research and educational purposes only. It is **not** a medical diagnosis system, clinical decision support system, or a replacement for professional healthcare advice.
+
+---
+---
+
+## Research Workspace
+
+<img src="assets/Interface.png" width="100%">
+
+---
+# Features
+
+### Document Intelligence
+
+- Upload PDF, TXT and Markdown documents
+- Structure-aware document parsing
+- Intelligent chunking
+- Metadata extraction
+- Document management interface
+
+### Hybrid Retrieval
+
+- Dense semantic retrieval using PubMedBERT embeddings
+- Sparse lexical retrieval using BM25
+- Reciprocal Rank Fusion (RRF)
+- Cross-Encoder reranking
+
+### Grounded Question Answering
+
+- Context-aware answer generation
+- Inline evidence citations
+- Source attribution
+- Retrieval inspection
+- Confidence estimation
+
+### Verification
+
+- Claim extraction
+- Citation verification
+- Evidence consistency checks
+- Confidence scoring
+
+### Evaluation Framework
+
+- Golden dataset benchmarking
+- Retrieval ablation study
+- Precision@K
+- Recall@K
+- Mean Reciprocal Rank (MRR)
+- Faithfulness
+- Relevance
+- Correctness
+- Citation validity
+- Hallucination analysis
+
+### Research Workspace
+
+- Modern Next.js interface
+- Interactive chat
+- Document management
+- Evaluation dashboard
+- Retrieval inspector
+- Confidence visualization
+
+---
+
+# Architecture
 
 ```
-biorag/
-├── backend/        FastAPI app — see backend/app/
-├── frontend/        Next.js research workspace — see frontend/app/
-├── docs/             architecture.md (full decision log across all phases)
-└── docker-compose.yml   (Phase 8, not yet added)
+                    Scientific Papers
+                            │
+                            ▼
+                     Document Parsing
+                            │
+                            ▼
+                  Structure-aware Chunking
+                            │
+          ┌─────────────────┴─────────────────┐
+          ▼                                   ▼
+ PubMedBERT Embeddings                  BM25 Index
+          │                                   │
+          └───────────────┬───────────────────┘
+                          ▼
+              Reciprocal Rank Fusion
+                          │
+                          ▼
+             Cross-Encoder Reranking
+                          │
+                          ▼
+                 Context Construction
+                          │
+                          ▼
+               Groq LLM Answer Generation
+                          │
+                          ▼
+      Claim Extraction & Citation Verification
+                          │
+                          ▼
+           Confidence Scoring & Final Answer
 ```
 
-## Backend setup
+---
+
+# Tech Stack
+
+## Backend
+
+- Python 3.11
+- FastAPI
+- LangChain
+- ChromaDB
+- SQLite
+- PubMedBERT
+- Sentence Transformers
+- BM25
+- Groq API
+
+## Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+
+## Testing
+
+- Pytest
+- Offline evaluation framework
+- End-to-end retrieval tests
+
+---
+
+# Repository Structure
+
+```
+BioRAG/
+│
+├── backend/
+│   ├── app/
+│   ├── tests/
+│   ├── data/
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   └── public/
+│
+├── docs/
+│   └── architecture.md
+│
+└── README.md
+```
+
+---
+
+# Getting Started
+
+## Backend
 
 ```bash
 cd backend
-python3 -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Linux/macOS
+source venv/bin/activate
+
 pip install -r requirements.txt
-cp .env.example .env              # add your real GROQ_API_KEY
+
+cp .env.example .env
+
+# Add your Groq API key
+GROQ_API_KEY=your_key_here
+
 uvicorn app.main:app --reload
 ```
 
-Verify: `curl http://localhost:8000/health` should return `"status": "ok"`.
+Backend:
 
-> **Note:** the first document you upload triggers a one-time ~420MB
-> download of the embedding model from Hugging Face (and a smaller
-> download for the reranker on first query). Requires internet access;
-> cached locally afterward.
-
-Run the backend test suite:
-
-```bash
-cd backend
-pytest -v
+```
+http://localhost:8000
 ```
 
-116 tests, all offline (embedding/reranker/LLM calls are faked at
-well-defined injection seams — see `tests/conftest.py` — while ChromaDB,
-BM25, RRF, reranking-selection, prompt-building, citation-parsing, and
-confidence-math all run for real).
+---
 
-## Frontend setup
+## Frontend
 
 ```bash
 cd frontend
+
 npm install
-cp .env.example .env.local        # points at http://localhost:8000 by default
+
+cp .env.example .env.local
+
 npm run dev
 ```
 
-Open `http://localhost:3000`. Make sure the backend is running first —
-the frontend has nothing to talk to otherwise. Landing on `/` creates a
-new chat and redirects into it, same as clicking "New Chat."
+Frontend:
 
-Pages:
-- **`/chat/[chatId]`** — the conversational research workspace. Ask a
-  question, watch the pipeline stages run, get a grounded answer with
-  clickable inline citations, a confidence score with an expandable
-  breakdown, evidence cards showing each source's rank journey through
-  dense/sparse/RRF/reranking, and an optional retrieval inspector — for
-  *every* message in the conversation, not just the last one. Chats
-  persist to SQLite; reopening one re-renders exactly what's stored
-  without rerunning retrieval or generation.
-- **`/documents`** — upload PDFs/TXT/MD, see ingestion status, expand any
-  document to inspect exactly how it was chunked (section, page,
-  strategy), delete documents.
-- **`/evaluation`** — run the golden Q&A dataset through the pipeline
-  (production mode, or a full 4-mode ablation comparison), see real
-  metrics. Shows "No evaluation run yet" honestly until a run actually
-  completes — nothing here is ever fabricated.
-
-**Chat sidebar**: pinned chats always sort first, then most-recently
-updated. New chats auto-title from the first message (local keyword
-extraction — no extra LLM call). Each chat has a `⋯` menu for pin/unpin,
-rename, duplicate, and delete (with confirmation). `Ctrl/⌘+N` starts a
-new chat from anywhere; `Ctrl/⌘+Shift+O` opens chat search.
-
-> **Known scope boundary:** each message in a chat runs an independent
-> RAG query — retrieval and generation do not use prior turns as context.
-> Chat history is fully preserved and displayed, but a short follow-up
-> like "why?" won't retrieve well on its own, the same way it wouldn't
-> against a search engine with no memory. Context-aware follow-up
-> retrieval is a real, separate feature that hasn't been built yet — see
-> `docs/architecture.md` for detail.
-
-## Roadmap
-
-| Phase | Scope | Status |
-|---|---|---|
-| 1 | Foundation: config, logging, DB, `/health` | ✅ done |
-| 2 | Document ingestion: PDF/TXT/MD parsing, structure-aware chunking | ✅ done |
-| 3 | Retrieval: embeddings, ChromaDB, BM25, RRF | ✅ done |
-| 4 | Cross-encoder reranking, grounded generation | ✅ done |
-| 5 | Claim extraction, citation verification, confidence scoring | ✅ done |
-| 6 | Evaluation framework + retrieval ablation study | ✅ done |
-| 7 | Next.js frontend + persistent chat system | ✅ done |
-| 8 | Tests, Docker, final docs | ⏳ next |
-
-## Trying the full pipeline
-
-```bash
-# Upload a paper
-curl -X POST http://localhost:8000/api/v1/documents/upload -F "file=@/path/to/paper.pdf"
-
-# Ask a question — full pipeline, with claims/verification/confidence
-curl -X POST http://localhost:8000/api/v1/query \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What evidence exists regarding X?", "include_retrieval_debug": true}'
-
-# Run evaluation (replace the shipped example cases in
-# data/evaluation/golden_dataset.json with real questions first)
-curl -X POST http://localhost:8000/api/v1/evaluation/run \
-  -H "Content-Type: application/json" \
-  -d '{"modes": ["dense_only", "sparse_only", "hybrid_rrf", "hybrid_rrf_rerank"]}'
+```
+http://localhost:3000
 ```
 
-Or just open `http://localhost:3000` and do all of this through the UI.
+---
 
-Evaluation numbers and ablation results depend entirely on what you've
-actually ingested and put in the golden dataset — no fabricated metrics
-are included anywhere in this repo, at any phase.
+# API Endpoints
 
-## Trying the chat API directly
+| Endpoint | Description |
+|----------|-------------|
+| `POST /api/v1/documents/upload` | Upload research documents |
+| `GET /api/v1/documents` | List uploaded documents |
+| `POST /api/v1/query` | Ask questions over uploaded literature |
+| `POST /api/v1/evaluation/run` | Run retrieval evaluation |
+
+---
+
+# Running Tests
 
 ```bash
-# Create a chat
-curl -X POST http://localhost:8000/api/v1/chats -H "Content-Type: application/json" -d '{}'
+cd backend
 
-# Send a message (runs the full pipeline, persists both messages)
-curl -X POST http://localhost:8000/api/v1/chats/{chat_id}/messages \
-  -H "Content-Type: application/json" \
-  -d '{"content": "What evidence exists regarding X?"}'
-
-# List chats (pinned first, then most recently updated)
-curl http://localhost:8000/api/v1/chats
-
-# Reopen a chat — reads persisted data, does NOT rerun retrieval or generation
-curl http://localhost:8000/api/v1/chats/{chat_id}
-
-# Pin, rename, duplicate, delete
-curl -X PATCH http://localhost:8000/api/v1/chats/{chat_id}/pin -d '{"pinned": true}'
-curl -X PATCH http://localhost:8000/api/v1/chats/{chat_id} -d '{"title": "My Chat"}'
-curl -X POST http://localhost:8000/api/v1/chats/{chat_id}/duplicate
-curl -X DELETE http://localhost:8000/api/v1/chats/{chat_id}
+pytest -v
 ```
+
+The evaluation framework benchmarks retrieval and generation quality using a configurable golden dataset.
+
+---
+
+# Screenshots
+
+The main workspace provides an intuitive interface for interacting with uploaded scientific literature.
+
+<img src="assets/Interface.png" width="100%">
+
+---
+
+## Conversational Research Assistant
+
+Ask questions naturally and receive grounded responses with citations and confidence estimates.
+
+<img src="assets/Chat.png" width="100%">
+
+---
+
+## Retrieval Inspector
+
+Inspect dense retrieval, BM25 search, Reciprocal Rank Fusion, and cross-encoder reranking to understand how each response was generated.
+
+<img src="assets/Inspection.png" width="100%">
+
+
+---
+
+# Roadmap
+
+- ✅ Biomedical document ingestion
+- ✅ Structure-aware chunking
+- ✅ Dense + Sparse hybrid retrieval
+- ✅ Reciprocal Rank Fusion
+- ✅ Cross-Encoder reranking
+- ✅ Grounded answer generation
+- ✅ Citation verification
+- ✅ Confidence scoring
+- ✅ Evaluation framework
+- ✅ Next.js research workspace
+
+---
+
+# Future Work
+
+- Custom Changes 
+- Docker & Docker Compose
+- Kubernetes deployment
+- CI/CD pipeline
+- Multi-document conversations
+- Knowledge graph integration
+- Authentication & user workspaces
+- Live streaming responses
+- Model selection & routing
+
+---
+
+# License
+
+MIT License
+
+---
+
+# Author
+
+Built as an end-to-end AI engineering project demonstrating modern Retrieval-Augmented Generation (RAG), hybrid information retrieval, evidence verification, and full-stack AI application development.
